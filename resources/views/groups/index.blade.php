@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+    <h1>{{Auth::user()->name}}</h1>
     <table class="table">
         <thead>
         <tr>
@@ -10,6 +10,7 @@
             <th>group_name</th>
             <th>start</th>
             <th>finish</th>
+            <th>student count</th>
         </tr>
         </thead>
         <tbody>
@@ -17,13 +18,16 @@
             <tr>
                 <td>{{ $group->id }} </td>
                 <td>{{ $group->course_id }}</td>
-                <td>{{ $group->teacher_id }}</td>
+                <td>{{ $group->teacher_id}}</td>
                 <td>{{ $group->group_name }}</td>
                 <td>{{ $group->start }}</td>
                 <td>{{ $group->finish }}</td>
                 <td>
-                    <a class="btn btn-warning" href="{{ route('groups.edit', $group->id) }}">Paskaitos</a>
-                    <a class="btn btn-success" href="{{ route('groups.edit', $group->id) }}">Studentai</a>
+                    {{ $group->student->count() }}
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="{{ route('lectures.groups', $group->id) }}">Paskaitos</a>
+                    <a class="btn btn-success" href="{{ route('students.groups', $group->id) }}">Studentai</a>
                     <a class="btn btn-danger" href="{{ route('groups.edit', $group->id) }}">Redaguoti</a>
                 </td>
                 <td>

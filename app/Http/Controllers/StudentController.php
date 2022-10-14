@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -15,7 +16,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $users=User::all();
+        $groups=Group::all();
+        return view("student.index",['users'=>$users, 'groups'=>$groups]);
     }
 
     /**

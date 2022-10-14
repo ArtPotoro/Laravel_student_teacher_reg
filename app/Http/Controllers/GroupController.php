@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Lecture;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
@@ -18,9 +20,15 @@ class GroupController extends Controller
     {
 
         $groups=Group::with('teacher')->get();
-//        $users=User::all();
+        $users=User::all();
+//        $lectures=Lecture::all();
 //        $groups=Group::all();
-        return view("groups.index",['groups'=>$groups]);
+        return view("groups.index",['groups'=>$groups, 'users'=>$users]);
+
+//        $users=User::with('student')->get();
+//        $groups=Group::all();
+//        $students=Student::all();
+//        return view("student.index",['users'=>$users, 'groups'=>$groups, 'students'=>$students]);
     }
 
     /**
@@ -89,10 +97,23 @@ class GroupController extends Controller
         //
     }
 
-    public function students($name,Request $request){
+    public function groupStudents($group_id,Request $request){
 
-        $request->post($name);
-        return $this->students();
+        $students=Student::where('group_id', $group_id)->get();
+        $users=User::all();
+        return view('groups.student', ['students'=>$students, 'users'=>$users]);
+//        $request->post($name);
+//        return $this->students();
 
     }
+    public function groupLectures($group_id,Request $request){
+
+        $lectures=Lecture::where('group_id', $group_id)->get();
+        $groups=Group::all();
+        return view('groups.lecture', ['lectures'=>$lectures, 'groups'=>$groups]);
+//        $request->post($name);
+//        return $this->students();
+
+    }
+
 }

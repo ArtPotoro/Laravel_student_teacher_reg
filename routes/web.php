@@ -22,11 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('groups', GroupController::class);
 });
 
-Route::get('/students/{name}',[GroupController::class, 'students'])
+Route::get('/groups/students/{group_id}',[GroupController::class, 'groupStudents'])
     ->name('students.groups');
 
-Route::get('/lectures/{name}',[LectureController::class, 'index'])
-    ->name('group.lectures');
+Route::get('/groups/lectures/{group_id}',[GroupController::class, 'groupLectures'])
+    ->name('lectures.groups');
 
 
 

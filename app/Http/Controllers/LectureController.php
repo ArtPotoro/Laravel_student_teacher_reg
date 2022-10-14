@@ -15,11 +15,12 @@ class LectureController extends Controller
      */
     public function index()
     {
-        $lectures=Lecture::with('group')->get();
+        $lectures=Lecture::all();
+        $groups=Group::all();
 
         //  $lectures = Lecture::where('group_id', )->get();
 
-        return view("lectures.index",['lectures'=>$lectures]);
+        return view("lectures.index",['lectures'=>$lectures, 'groups'=>$groups]);
     }
 
     /**

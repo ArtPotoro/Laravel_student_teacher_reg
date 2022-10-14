@@ -12,7 +12,7 @@ class Lecture extends Model
     public function file() {
         return $this->hasMany(File::class);
     }
-    public function group() {
-        return $this->belongsTo(Group::class);
+    public function groups() {
+        return $this->hasMany(Group::class, 'id');
     }
 }

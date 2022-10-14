@@ -10,9 +10,9 @@ class Student extends Model
     use HasFactory;
 
     public function users() {
-        return $this->belongsToMany(User::class, 'students');
+        return $this->hasMany(User::class, 'id');
     }
     public function groups() {
-        return $this->belongsToMany(Group::class, 'students');
+        return $this->hasMany(Group::class, 'id');
     }
 }
