@@ -15,7 +15,7 @@ class Group extends Model
         return $this->belongsTo(Course::class);
     }
     public function teacher() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'type');
     }
     public function student(){
         return $this->hasMany(Student::class);

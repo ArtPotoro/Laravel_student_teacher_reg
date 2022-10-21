@@ -11,7 +11,7 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label class="form-label">Group Name</label>
-                            <input class="form-control @error('group_name') is-invalid @enderror" type="text" name="name" value="{{ $group->group_name }}">
+                            <input class="form-control @error('group_name') is-invalid @enderror" type="text" name="group_name" value="{{ $group->group_name }}">
                             @error('group_name')
                             @foreach( $errors->get('group_name') as $error)
                                 <div class="alert alert-danger"> {{ $error }} </div>
@@ -23,10 +23,8 @@
                             <select class="form-control @error('course_id') is-invalid @enderror" name="course_id" >
                                 <option selected disabled>Choose</option>
                                 @foreach($courses as $course)
-                                    <option value="{{$course->id}}" @selected($group->course_id==$course->id)> {{$group->group_name}} </option>
+                                    <option value="{{$course->id}}" @selected($group->course_id==$course->id)> {{$group->course->course_name}} </option>
                                 @endforeach
-
-
                             </select>
                             @error('course_id')
                             @foreach( $errors->get('course_id') as $error)
