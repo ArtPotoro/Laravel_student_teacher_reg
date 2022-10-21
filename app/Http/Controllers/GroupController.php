@@ -88,10 +88,10 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        $groups=Group::all();
+
         $courses=Course::with('group')->get();
         $teachers=User::all()->where('type', '==', 'teacher');
-        return view('groups.update', ['group'=>$group, 'courses'=>$courses, 'teachers'=>$teachers, 'groups'=>$groups]);
+        return view('groups.update', ['group'=>$group, 'courses'=>$courses, 'teachers'=>$teachers]);
     }
 
     /**
@@ -103,7 +103,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        $group->id=$request->id;
         $group->teacher_id=$request->teacher_id;
         $group->group_name=$request->group_name;
         $group->course_id=$request->course_id;

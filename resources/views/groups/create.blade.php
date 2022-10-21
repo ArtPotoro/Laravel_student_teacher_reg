@@ -10,7 +10,7 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Groups Name</label>
-                            <input class="form-control @error('group_name') is-invalid @enderror" type="text" name="name" value="{{old('group_name')}}">
+                            <input class="form-control @error('group_name') is-invalid @enderror" type="text" name="group_name" value="{{old('group_name')}}">
                             @error('group_name')
                             @foreach( $errors->get('group_name') as $error)
                                 <div class="alert alert-danger"> {{ $error }} </div>

@@ -10,6 +10,6 @@ class Course extends Model
     use HasFactory;
 
     public function group(){
-        $this->hasMany(Group::class);
+        return $this->hasMany(Group::class);
     }
 }
