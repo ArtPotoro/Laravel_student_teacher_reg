@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Course;
 use App\Models\Lecture;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use PHPUnit\TextUI\XmlConfiguration\Groups;
 
 class GroupController extends Controller
 {
@@ -49,7 +51,22 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'group_name' => 'required',
+        ],
+            [
+                'group_name.required' => 'Group name required',
+
+            ]);
+        $group = new Group();
+        $group->group_name=$request->group_name;
+        $group->course_id=$request->course_id;
+        $group->start=$request->start;
+        $group->finish=$request->finish;
+        $group->teacher_id=$request->teacher_id;
+
+        $group->save();
+        return redirect()->route('groups.index');
     }
 
     /**
@@ -71,7 +88,10 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        $groups=Group::all();
+        $courses=Course::with('group')->get();
+        $teachers=User::all()->where('type', '==', 'teacher');
+        return view('groups.update', ['group'=>$group, 'courses'=>$courses, 'teachers'=>$teachers, 'groups'=>$groups]);
     }
 
     /**
@@ -83,7 +103,15 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $group->id=$request->id;
+        $group->teacher_id=$request->teacher_id;
+        $group->group_name=$request->group_name;
+        $group->course_id=$request->course_id;
+        $group->start=$request->start;
+        $group->finish=$request->finish;
+
+        $group->save();
+        return redirect()->route('groups.index');
     }
 
     /**
@@ -116,4 +144,18 @@ class GroupController extends Controller
 
     }
 
+    public function groupCreate(){
+//        $users=User::all();
+        $teachers=User::all()->where('type', '==', 'teacher');
+        $lectures=Lecture::all();
+        $groups=Group::all();
+        $courses=Course::all();
+        $students=Student::all();
+        return view('groups.create', [ 'groups'=>$groups, 'courses'=>$courses, 'students'=>$students, 'lectures'=>$lectures, 'teachers'=>$teachers]);
+    }
+    public function groupUpdate($id, Request $request){
+//        $groups=Group::all();
+        $groups=Group::where('id', $id)->get();
+        return view('groups.update', ['groups'=>$groups]);
+    }
 }

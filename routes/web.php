@@ -1,5 +1,10 @@
 <?php
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\LectureController;
+use App\Http\Controllers\FileController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -20,6 +25,10 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
     Route::resource('groups', GroupController::class);
+    Route::resource('courses', CourseController::class);
+    Route::resource('students', StudentController::class);
+    Route::resource('lectures', LectureController::class);
+    Route::resource('files', FileController::class);
 });
 
 Route::get('/groups/students/{group_id}',[GroupController::class, 'groupStudents'])
@@ -28,6 +37,11 @@ Route::get('/groups/students/{group_id}',[GroupController::class, 'groupStudents
 Route::get('/groups/lectures/{group_id}',[GroupController::class, 'groupLectures'])
     ->name('lectures.groups');
 
+Route::get('/create',[GroupController::class, 'groupCreate'])
+    ->name('create.groups');
+
+//Route::get('/update/{course_id}',[GroupController::class, 'groupUpdate'])
+//    ->name('update.groups');
 
 
 

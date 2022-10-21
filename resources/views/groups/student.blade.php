@@ -8,9 +8,6 @@
             <th>group_id</th>
             <th>user name</th>
             <th>group_name</th>
-            <th></th>
-            <th></th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -19,9 +16,14 @@
                 <td>{{ $student->user_id }} </td>
                 <td>{{ $student->group_id }}</td>
 {{--                <td>{{ $student->user->name }}</td>--}}
-                @foreach($student->users as $user)
-                    <td> {{ $user->name }} </td>
-                @endforeach
+                    @foreach($users as $user)
+                        @if($student->user_id == $user->id)
+                            <td>{{$user->name}}</td>
+                        @endif
+                    @endforeach
+{{--                @foreach($student->users as $user)--}}
+{{--                    <td> {{ $user->name }} </td>--}}
+{{--                @endforeach--}}
                 @foreach($student->groups as $group)
                     <td> {{ $group->group_name }} </td>
                 @endforeach
